@@ -1,0 +1,8 @@
+version: 1.0.1
+files:
+  - url: cms_setup_1.0.1.exe
+    sha512: 3lPuV3x4vX6RcOSkSHgKPs2uBg5kqeNnYUlf9SSqGr+x48Hwo7cZCyUduiVRgnaeFUUmtteqsn3/jopsgfh01A==
+    size: 46146278
+path: cms_setup_1.0.1.exe
+sha512: 3lPuV3x4vX6RcOSkSHgKPs2uBg5kqeNnYUlf9SSqGr+x48Hwo7cZCyUduiVRgnaeFUUmtteqsn3/jopsgfh01A==
+releaseDate: '2019-09-17T10:33:08.854Z'
