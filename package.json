@@ -13,7 +13,7 @@
     "publish": "electron-forge publish",
     "build": "electron-builder --win --ia32",
     "online": "electron-builder --publish always",
-    "pack": "build --win --ia32 -p always",
+    "pack": "build -p always",
     "lint": "eslint src --color"
   },
   "keywords": [],
@@ -72,7 +72,7 @@
     "electron-prebuilt-compile": "4.0.0"
   },
   "build": {
-    "appId": "com.github.shawflying.electron-print",
+    "appId": "com.github.shawflying.electron-tingo-cms",
     "copyright": "听果音乐所有",
     "productName": "cms",
     "directories": {
@@ -82,7 +82,7 @@
       {
         "provider": "github",
         "owner": "shawflying",
-        "repo": "electron-print"
+        "repo": "electron-tingo-cms"
       }
     ],
     "dmg": {
