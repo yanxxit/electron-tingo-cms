@@ -55,7 +55,8 @@ if (process.platform === 'darwin') {
 let win;
 
 function sendStatusToWindow(text) {
-  log.info(text);
+  log.info("# sendStatusToWindow:", text);
+
   win.webContents.send('message', text);
 }
 function createDefaultWindow() {
@@ -66,7 +67,14 @@ function createDefaultWindow() {
   });
   win.loadURL(`file://${__dirname}/update.html#v${app.getVersion()}`);
   return win;
-}
+};
+
+autoUpdater.setFeedURL({
+  provider: "github",
+  owner: "shawflying",
+  repo: "election-tingo-cms"
+})
+
 autoUpdater.on('checking-for-update', () => {
   sendStatusToWindow('Checking for update...');
 })
