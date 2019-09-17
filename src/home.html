@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>听果音乐管理平台</title>
+  <script src="https://cdn.staticfile.org/vue/2.6.10/vue.min.js"></script>
+  <style>
+    [v-cloak] {
+      display: none;
+    }
+
+    html,
+    body,
+    webview {
+      width: 100%;
+      height: 100%;
+      border: 0px;
+    }
+
+    webview.hidden {
+      width: 0px;
+      height: 0px;
+      flex: 0 1;
+    }
+  </style>
+</head>
+<script>
+  var moment = require("moment");
+  var axios = require("axios");
+  console.log(moment().format('YYYY'));
+</script>
+
+<body>
+  <webview id="foo" src="http://app.du-nang.com" width="100%" height="100%" allowpopups></webview>
+  <script>
+    // You can also require other files to run in this process
+    // require('./renderer.js')
+
+    var webview = onload = () => {
+      webview = document.querySelector("webview");
+      webview.addEventListener("new-window", (e) => {
+        var protocol = require("url").parse(e.url).protocol;
+        if (protocol === 'http:' || protocol === "https:") {
+          webview.src = e.url;
+          console.log("===>>:", e.url);
+        }
+      });
+    }
+    console.log(moment().format('YYYY-MM-DD'));
+
+    var vm = new Vue({
+      el: '#show',
+      data: {
+        deviceno: '',
+        about: '',
+        topics: [],
+        info: 'vue.js 数据未加载完成时，隐藏，也可以控制样式，做出loading效果'
+      },
+      methods: {//方法
+        show: function () {
+          this.about = "about ....";
+        },
+        getInfo: async () => {
+          let that = this;
+          axios.get("https://cnodejs.org/api/v1/topics?page=1&limit=1").then((data) => {
+            // console.log(JSON.stringify(data.data.data, null, 2))
+            vm.$nextTick(() => {
+              vm.about = "DDDD"
+              vm.topics = data.data.data;
+            });
+          })
+        }
+      },
+      watch: {//监听
+        deviceno: function (val, oldVal) {
+          console.log("当前值:" + val + " old 值:" + oldVal)
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

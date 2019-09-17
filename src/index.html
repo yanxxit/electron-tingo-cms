@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>听果音乐管理平台</title>
+  <style>
+    html,
+    body,
+    webview {
+      width: 100%;
+      height: 100%;
+      border: 0px;
+    }
+
+    webview.hidden {
+      width: 0px;
+      height: 0px;
+      flex: 0 1;
+    }
+  </style>
+</head>
+
+<body>
+  <webview id="foo" src="http://app.du-nang.com" width="100%" height="100%" style="display:inline-flex; width:640px; height:480px" allowpopups></webview>
+  <script>
+    var moment = require("moment");
+    var axios = require("axios");
+    console.log(moment().format('YYYY'));
+    // You can also require other files to run in this process
+    require('./renderer.js')
+
+    var webview = onload = () => {
+      webview = document.querySelector("webview");
+      webview.addEventListener('dom-ready', () => {
+        console.log('webiew dom-ready');
+      });
+      webview.addEventListener("new-window", (e) => {
+        console.log("new-window");
+        var protocol = require("url").parse(e.url).protocol;
+        if (protocol === 'http:' || protocol === "https:") {
+          webview.src = e.url;
+          console.log("===>>:", e.url);
+        }
+      });
+    }
+
+  </script>
+</body>
+
+</html>

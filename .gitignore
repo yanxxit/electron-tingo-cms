@@ -1,0 +1,11 @@
+node_modules
+out
+release
+dist
+
+build/win-unpacked
+build/win-ia32-unpacked
+build/*.zip
+build/*.yaml
+build/*.exe
+build/*.exe.*

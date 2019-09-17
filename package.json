@@ -1,0 +1,116 @@
+{
+  "name": "electron-print",
+  "productName": "听果音乐管理平台",
+  "version": "1.0.0",
+  "description": "听果音乐管理平台",
+  "main": "src/main_update.js",
+  "scripts": {
+    "dev": "electron .",
+    "pkg": "electron-packager ./ printClient --win --out ./release --arch=x64 --overwrite --icon=./src/tingo.ico --electron-version 4.1.4",
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make",
+    "publish": "electron-forge publish",
+    "build": "electron-builder --win --ia32",
+    "online": "electron-builder --publish always",
+    "pack": "build --win --ia32 -p always",
+    "lint": "eslint src --color"
+  },
+  "keywords": [],
+  "author": "Administrator",
+  "license": "MIT",
+  "config": {
+    "forge": {
+      "make_targets": {
+        "win32": [
+          "squirrel"
+        ],
+        "darwin": [
+          "zip"
+        ],
+        "linux": [
+          "deb",
+          "rpm"
+        ]
+      },
+      "electronPackagerConfig": {
+        "packageManager": "yarn"
+      },
+      "electronWinstallerConfig": {
+        "name": "electron_print"
+      },
+      "electronInstallerDebian": {},
+      "electronInstallerRedhat": {},
+      "github_repository": {
+        "owner": "",
+        "name": ""
+      },
+      "windowsStoreConfig": {
+        "packageName": "",
+        "name": "electronprint"
+      }
+    }
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "config": "^3.2.2",
+    "electron-compile": "^6.4.4",
+    "electron-log": "^3.0.8",
+    "electron-squirrel-startup": "^1.0.0",
+    "electron-updater": "^4.1.2",
+    "lodash": "^4.17.11",
+    "moment": "^2.24.0"
+  },
+  "devDependencies": {
+    "babel-plugin-transform-async-to-generator": "^6.24.1",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "electron": "4.1.4",
+    "electron-builder": "^21.2.0",
+    "electron-forge": "^5.2.4",
+    "electron-packager": "^13.1.1",
+    "electron-prebuilt-compile": "4.0.0"
+  },
+  "build": {
+    "appId": "com.github.shawflying.electron-print",
+    "copyright": "听果音乐所有",
+    "productName": "cms",
+    "directories": {
+      "output": "build"
+    },
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "shawflying",
+        "repo": "electron-print"
+      }
+    ],
+    "dmg": {
+      "window": {
+        "x": 100,
+        "y": 100,
+        "width": 500,
+        "height": 300
+      }
+    },
+    "win": {
+      "icon": "src/bk.ico",
+      "target": [
+        "nsis",
+        "zip"
+      ],
+      "artifactName": "${productName}_setup_${version}.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowElevation": true,
+      "allowToChangeInstallationDirectory": true,
+      "installerIcon": "./build/icon/tingo.ico",
+      "uninstallerIcon": "./build/icon/tingo.ico",
+      "installerHeaderIcon": "./build/icon/tingo.ico",
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "CMS"
+    }
+  }
+}
