@@ -1,27 +1,15 @@
-// This is free and unencumbered software released into the public domain.
-// See LICENSE for details
-
 const { app, BrowserWindow, Menu, protocol, ipcMain } = require('electron');
 const log = require('electron-log');
+// 引入自动更新模块
 const { autoUpdater } = require("electron-updater");
+// const feedUrl = "https://github.com/shawflying/electron-tingo-cms/releases/download/untagged-a8ba4350679dfd8d625d/cms_setup_1.0.1.exe";
+const feedUrl = "https://github.com/shawflying/electron-tingo-cms/releases/download/untagged-a8ba4350679dfd8d625d/latest.yml";
+// if (require('electron-squirrel-startup')) return;
 
-//-------------------------------------------------------------------
-// Logging
-//
-// THIS SECTION IS NOT REQUIRED
-//
-// This logging setup is not required for auto-updates to work,
-// but it sure makes debugging easier :)
-//-------------------------------------------------------------------
 autoUpdater.logger = log;
 autoUpdater.logger.transports.file.level = 'info';
 log.info('App starting...');
 
-//-------------------------------------------------------------------
-// Define the menu
-//
-// THIS SECTION IS NOT REQUIRED
-//-------------------------------------------------------------------
 let template = []
 if (process.platform === 'darwin') {
   // OS X
@@ -42,32 +30,69 @@ if (process.platform === 'darwin') {
   })
 }
 
-
-//-------------------------------------------------------------------
-// Open a window that displays the version
-//
-// THIS SECTION IS NOT REQUIRED
-//
-// This isn't required for auto-updates to work, but it's easier
-// for the app to show a window than to have to click "About" to see
-// that updates are working.
-//-------------------------------------------------------------------
-let win;
+let mainWindow;
 
 function sendStatusToWindow(text) {
   log.info("# sendStatusToWindow:", text);
 
-  win.webContents.send('message', text);
+  mainWindow.webContents.send('message', text);
 }
 function createDefaultWindow() {
-  win = new BrowserWindow();
-  win.webContents.openDevTools();
-  win.on('closed', () => {
-    win = null;
+  mainWindow = new BrowserWindow();
+
+  mainWindow.webContents.openDevTools();
+  mainWindow.on('closed', () => {
+    mainWindow = null;
   });
-  win.loadURL(`file://${__dirname}/update.html#v${app.getVersion()}`);
-  return win;
+  mainWindow.loadURL(`file://${__dirname}/update.html#v${app.getVersion()}`);
+  return mainWindow;
 };
+
+// 主进程监听渲染进程传来的信息
+ipcMain.on('update', (e, arg) => {
+  console.log("update");
+  checkForUpdates();
+});
+let checkForUpdates = () => {
+  // 配置安装包远端服务器 
+  autoUpdater.setFeedURL(feedUrl);
+
+  // 下面是自动更新的整个生命周期所发生的事件
+  autoUpdater.on('error', function (message) {
+    sendUpdateMessage('error', message);
+  });
+  // 检查更新
+  autoUpdater.on('checking-for-update', function (message) {
+    sendUpdateMessage('checking-for-update', message);
+  });
+  autoUpdater.on('update-available', function (message) {
+    sendUpdateMessage('update-available', message);
+  });
+  autoUpdater.on('update-not-available', function (message) {
+    sendUpdateMessage('update-not-available', message);
+  });
+
+  // 更新下载进度事件
+  autoUpdater.on('download-progress', function (progressObj) {
+    sendUpdateMessage('downloadProgress', progressObj);
+  });
+  // 更新下载完成事件
+  autoUpdater.on('update-downloaded', function (event, releaseNotes, releaseName, releaseDate, updateUrl, quitAndUpdate) {
+    sendUpdateMessage('isUpdateNow');
+    ipcMain.on('updateNow', (e, arg) => {
+      autoUpdater.quitAndInstall();
+    });
+  });
+
+  //执行自动更新检查
+  autoUpdater.checkForUpdates();
+};
+
+// 主进程主动发送消息给渲染进程函数
+function sendUpdateMessage(message, data) {
+  console.log({ message, data });
+  mainWindow.webContents.send('message', { message, data });
+}
 
 autoUpdater.setFeedURL({
   provider: "github",
@@ -101,51 +126,9 @@ app.on('ready', function () {
   // Create the Menu
   const menu = Menu.buildFromTemplate(template);
   Menu.setApplicationMenu(menu);
-
+  autoUpdater.checkForUpdatesAndNotify();
   createDefaultWindow();
 });
 app.on('window-all-closed', () => {
   app.quit();
 });
-
-//
-// CHOOSE one of the following options for Auto updates
-//
-
-//-------------------------------------------------------------------
-// Auto updates - Option 1 - Simplest version
-//
-// This will immediately download an update, then install when the
-// app quits.
-//-------------------------------------------------------------------
-app.on('ready', function () {
-  autoUpdater.checkForUpdatesAndNotify();
-});
-
-//-------------------------------------------------------------------
-// Auto updates - Option 2 - More control
-//
-// For details about these events, see the Wiki:
-// https://github.com/electron-userland/electron-builder/wiki/Auto-Update#events
-//
-// The app doesn't need to listen to any events except `update-downloaded`
-//
-// Uncomment any of the below events to listen for them.  Also,
-// look in the previous section to see them being used.
-//-------------------------------------------------------------------
-// app.on('ready', function()  {
-//   autoUpdater.checkForUpdates();
-// });
-// autoUpdater.on('checking-for-update', () => {
-// })
-// autoUpdater.on('update-available', (info) => {
-// })
-// autoUpdater.on('update-not-available', (info) => {
-// })
-// autoUpdater.on('error', (err) => {
-// })
-// autoUpdater.on('download-progress', (progressObj) => {
-// })
-// autoUpdater.on('update-downloaded', (info) => {
-//   autoUpdater.quitAndInstall();  
-// })

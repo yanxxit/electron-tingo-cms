@@ -94,7 +94,7 @@
       }
     },
     "win": {
-      "icon": "src/bk.ico",
+      "icon": "src/icon/bk.ico",
       "target": [
         "nsis",
         "zip"
@@ -111,6 +111,10 @@
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true,
       "shortcutName": "CMS"
+    },
+    "extraResources": {
+      "from": "./src/icon",
+      "to": "./"
     }
   }
 }

@@ -2,24 +2,68 @@
 <html>
 
 <head>
-  <title>Electron Updater Example</title>
+  <meta charset="UTF-8">
+  <title>听果音乐管理平台</title>
+  <script src="https://cdn.staticfile.org/vue/2.6.10/vue.min.js"></script>
+  <style>
+    [v-cloak] {
+      display: none;
+    }
+
+    html,
+    body,
+    webview {
+      width: 100%;
+      height: 100%;
+      border: 0px;
+    }
+
+    webview.hidden {
+      width: 0px;
+      height: 0px;
+      flex: 0 1;
+    }
+  </style>
 </head>
+<script>
+  var moment = require("moment");
+  var axios = require("axios");
+  console.log(moment().format('YYYY'));
+</script>
 
 <body>
-  Current version: <span id="version">vX.Y.Z</span>
-  <div id="messages"></div>
+  <div id="app">
+    <!-- <router-view></router-view> -->
+    <button @click="autoUpdate()">获取更新</button>
+    <ol id="content">
+      <li>生命周期过程展示</li>
+    </ol>
+  </div>
   <script>
-    // Display the current version
-    let version = window.location.hash.substring(1);
-    document.getElementById('version').innerText = version;
-
-    // Listen for messages
     const { ipcRenderer } = require('electron');
-    ipcRenderer.on('message', function (event, text) {
-      var container = document.getElementById('messages');
-      var message = document.createElement('div');
-      message.innerHTML = text;
-      container.appendChild(message);
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        deviceno: '',
+      },
+      mounted() {
+        var _ol = document.getElementById("content");
+        ipcRenderer.on('message', (event, { message, data }) => {
+          let _li = document.createElement("li");
+          _li.innerHTML = message + " <br>data:" + JSON.stringify(data) + "<hr>";
+          _ol.appendChild(_li);
+          if (message === 'isUpdateNow') {
+            if (confirm('是否现在更新？')) {
+              ipcRenderer.send('updateNow');
+            }
+          }
+        });
+      },
+      methods: {
+        autoUpdate() {
+          ipcRenderer.send('update');
+        }
+      }
     })
   </script>
 </body>
