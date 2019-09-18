@@ -39,14 +39,8 @@ let mainWindow;
 
 let checkForUpdates = () => {
   // 配置安装包远端服务器 
-  // autoUpdater.setFeedURL({
-  //   provider: "github",
-  //   repo: "electron-tingo-cms",
-  //   owner: "shawflying",
-  //   releaseType: "draft"
-  // });
-  // autoUpdater.setFeedURL(feedUrl);
   autoUpdater.setFeedURL(feedUrl);
+  log.info("# ==>", feedUrl, autoUpdater.getFeedURL())
   // 下面是自动更新的整个生命周期所发生的事件
   autoUpdater.on('error', function (message) {
     sendUpdateMessage('Error in auto-updater. ', message);
