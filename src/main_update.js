@@ -6,14 +6,10 @@ const { autoUpdater } = require("electron-updater");
 // const feedUrl = "https://github.com/shawflying/electron-tingo-cms/releases/download/untagged-a8ba4350679dfd8d625d/cms_setup_1.0.1.exe";
 // const feedUrl = "https://github.com/shawflying/electron-tingo-cms/releases/download/untagged-a8ba4350679dfd8d625d/";
 const feedUrl = "http://127.0.0.1:8080/";
-// if (require('electron-squirrel-startup')) return;
 
 autoUpdater.logger = log;
 autoUpdater.logger.transports.file.level = 'info';
-var platform = os.platform() + '_' + os.arch();
-var version = app.getVersion();
 log.info('App starting...');
-log.info(`http://download.myapp.com/update/${platform}/${version}`);
 
 let template = []
 if (process.platform === 'darwin') {
@@ -39,13 +35,6 @@ let mainWindow;
 
 let checkForUpdates = () => {
   // 配置安装包远端服务器 
-  // autoUpdater.setFeedURL({
-  //   provider: "github",
-  //   repo: "electron-tingo-cms",
-  //   owner: "shawflying",
-  //   releaseType: "draft"
-  // });
-  // autoUpdater.setFeedURL(feedUrl);
   autoUpdater.setFeedURL(feedUrl);
   // 下面是自动更新的整个生命周期所发生的事件
   autoUpdater.on('error', function (message) {
