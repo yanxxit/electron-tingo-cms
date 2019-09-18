@@ -1,7 +1,7 @@
 {
   "name": "electron-print",
   "productName": "听果音乐管理平台",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "听果音乐管理平台",
   "main": "src/main_update.js",
   "scripts": {
@@ -19,6 +19,10 @@
   "keywords": [],
   "author": "Administrator",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shawflying/electron-tingo-cms.git"
+  },
   "config": {
     "forge": {
       "make_targets": {
