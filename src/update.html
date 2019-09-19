@@ -9,20 +9,6 @@
     [v-cloak] {
       display: none;
     }
-
-    html,
-    body,
-    webview {
-      width: 100%;
-      height: 100%;
-      border: 0px;
-    }
-
-    webview.hidden {
-      width: 0px;
-      height: 0px;
-      flex: 0 1;
-    }
   </style>
 </head>
 <script>
@@ -35,15 +21,19 @@
   <div id="app">
     <button @click="autoUpdate()">获取更新</button>
     <ol id="content">
-      <li>生命周期过程展示</li>
+      <li>生命周期过程展示:{{name}}-{{version}}</li>
     </ol>
   </div>
   <script>
     const { ipcRenderer } = require('electron');
+    let pkg = require("../package.json");
+    console.log(pkg.name, pkg.productName, pkg.version);
     var vm = new Vue({
       el: '#app',
       data: {
-        deviceno: '',
+        name: pkg.name,
+        version: pkg.version,
+        productName: pkg.productName,
       },
       mounted() {
         var _ol = document.getElementById("content");
