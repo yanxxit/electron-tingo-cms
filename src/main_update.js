@@ -61,7 +61,7 @@ let checkForUpdates = () => {
     sendUpdateMessage('isUpdateNow');
     ipcMain.on('updateNow', (e, arg) => {
       autoUpdater.quitAndInstall();
-      mainWindow.destroy()
+      // mainWindow.destroy()
     });
   });
 
