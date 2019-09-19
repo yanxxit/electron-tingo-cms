@@ -3,9 +3,9 @@ const log = require('electron-log');
 const os = require('os');
 // 引入自动更新模块
 const { autoUpdater } = require("electron-updater");
-// const feedUrl = "https://github.com/shawflying/electron-tingo-cms/releases/download/untagged-a8ba4350679dfd8d625d/cms_setup_1.0.1.exe";
-// const feedUrl = "https://github.com/shawflying/electron-tingo-cms/releases/download/untagged-a8ba4350679dfd8d625d/";
-const feedUrl = "http://127.0.0.1:8080/";
+// const feedUrl = "http://127.0.0.1:8080/";//成功
+const feedUrl = "http://dev.du-nang.com/update/";//成功，当前版本要低于目标版本
+// const feedUrl = "https://github.com/shawflying/electron-tingo-cms/releases/download/untagged-32498617e97bdbde4ff2/";//失败 或者太慢
 
 autoUpdater.logger = log;
 autoUpdater.logger.transports.file.level = 'info';
@@ -15,7 +15,7 @@ let template = []
 if (process.platform === 'darwin') {
   // OS X
   const name = app.getName();
-  
+
   template.unshift({
     label: name,
     submenu: [
