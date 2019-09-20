@@ -27,6 +27,8 @@ app.on('ready', () => {
     accelerator: 'CmdOrCtrl+P',
     click: () => { console.log('time to print stuff') }
   }))
+
+  Menu.setApplicationMenu(menu);// menu
   tray = new Tray(path.join(__dirname, 'icon/tingo.ico'))
   const contextMenu = Menu.buildFromTemplate([
     { label: '启动', type: 'radio' },
