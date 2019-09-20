@@ -3,7 +3,7 @@
   "productName": "听果音乐管理平台",
   "version": "1.0.5",
   "description": "听果音乐管理平台",
-  "main": "src/main_update.js",
+  "main": "src/main.js",
   "scripts": {
     "dev": "electron .",
     "pkg": "electron-packager ./ printClient --win --out ./release --arch=x64 --overwrite --icon=./src/tingo.ico --electron-version 4.1.4",
@@ -57,7 +57,6 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
-    "config": "^3.2.2",
     "electron-compile": "^6.4.4",
     "electron-log": "^3.0.8",
     "electron-squirrel-startup": "^1.0.0",
