@@ -1,14 +1,14 @@
 // 引入自动更新模块
 const { autoUpdater } = require("electron-updater");
 const { ipcMain } = require('electron');
-// const feedUrl = "http://127.0.0.1:8080/";//成功
-const feedUrl = "http://dev.du-nang.com/update/";//成功，当前版本要低于目标版本
-// const feedUrl = "https://github.com/shawflying/electron-tingo-cms/releases/download/untagged-32498617e97bdbde4ff2/";//失败 或者太慢
 const log = require('electron-log');
+const config = require("../config")
+const feedUrl = config.feedUrl;
 autoUpdater.logger = log;
 autoUpdater.logger.transports.file.level = 'info';
 
 class Upgrade {
+  /** 检测更新 */
   static checkForUpdates(mainWindow) {
 
     // 主进程主动发送消息给渲染进程函数
