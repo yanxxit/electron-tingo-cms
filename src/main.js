@@ -1,6 +1,7 @@
 import { app, BrowserWindow, Menu, Tray, MenuItem, globalShortcut, dialog, ipcMain, isMac } from 'electron';
 import path from 'path';
 import os from 'os';
+const log = require('electron-log');
 const url = require('url');
 const Upgrade = require("./utils/upgrade")
 const menuTools = require("./utils/menu")
@@ -26,11 +27,31 @@ app.on('ready', () => {
   /** 右击菜单 */
   tray = new Tray(path.join(__dirname, 'icon/tingo.ico'))
   const contextMenu = Menu.buildFromTemplate([
-    { label: '启动', type: 'radio' },
-    { label: '关闭', type: 'radio' },
-    { label: '重启', type: 'radio', checked: true },
+    {
+      label: '启动', type: 'radio', click: async () => {
+        log.info("---->>>:start");
+      }
+    },
+    {
+      label: '关闭', type: 'radio', click: async () => {
+        log.info("---->>>:close");
+      }
+    },
+    {
+      label: '重启', type: 'radio', checked: true,
+      click: async () => {
+        log.info("---->>>:restart");
+      }
+    },
+    {
+      label: '更新程序', type: 'radio',
+      click: async () => {
+        log.info("---->>>:update");
+        Upgrade.checkForUpdates(mainWindow);
+      }
+    },
   ])
-  tray.setToolTip('This is my application.')
+  tray.setToolTip('这是听果音乐程序')
   tray.setContextMenu(contextMenu)
   mainWindow = new BrowserWindow({
     backgroundColor: '#ffffff',//背景色
@@ -57,6 +78,7 @@ app.on('ready', () => {
   });
 
   mainWindow.webContents.on('did-finish-load', () => {
+    log.info("did-finish-load");
     // Upgrade.checkForUpdates(mainWindow);
   })
   // // 启动后监听
