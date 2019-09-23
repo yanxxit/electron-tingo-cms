@@ -1,8 +1,9 @@
-import { app, BrowserWindow, Menu, Tray, MenuItem, globalShortcut, dialog, ipcMain } from 'electron';
+import { app, BrowserWindow, Menu, Tray, MenuItem, globalShortcut, dialog, ipcMain, isMac } from 'electron';
 import path from 'path';
 import os from 'os';
 const url = require('url');
 const Upgrade = require("./utils/upgrade")
+const menuTools = require("./utils/menu")
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) { // eslint-disable-line global-require
@@ -19,16 +20,10 @@ ipcMain.on('update', (e, arg) => {
 let tray = null
 
 app.on('ready', () => {
+  // darwin 是OSX
+  // arch 为X64
+  console.log(process.platform, 'darwin')
   /** 右击菜单 */
-  const menu = new Menu()
-
-  menu.append(new MenuItem({
-    label: 'Print',
-    accelerator: 'CmdOrCtrl+P',
-    click: () => { console.log('time to print stuff') }
-  }))
-
-  Menu.setApplicationMenu(menu);// menu
   tray = new Tray(path.join(__dirname, 'icon/tingo.ico'))
   const contextMenu = Menu.buildFromTemplate([
     { label: '启动', type: 'radio' },
@@ -38,13 +33,22 @@ app.on('ready', () => {
   tray.setToolTip('This is my application.')
   tray.setContextMenu(contextMenu)
   mainWindow = new BrowserWindow({
+    backgroundColor: '#ffffff',//背景色
+    // modal: true, show: false,
+    // fullscreen: true,//默认全屏
+    title: "听果cms",
+    icon: path.join(__dirname, 'icon/tingo.ico'),
     width: 800,
     height: 600,
+    // frame: false
   });
 
-  mainWindow.webContents.openDevTools();
-  mainWindow.loadURL(`file://${__dirname}/index.html#v${app.getVersion()}`)
+  // mainWindow.webContents.openDevTools();
+  mainWindow.loadURL(`file://${__dirname}/index.html#v${app.getVersion()}`);
+  // mainWindow.loadURL('http://dev.du-nang.com');// 有些js无法加载
+  // mainWindow.loadURL('https://github.com')
 
+  menuTools.init(app, mainWindow);
   // console.log(dialog.showOpenDialog({ properties: ['openFile', 'openDirectory', 'multiSelections'] }))
 
   // dialog.showMessageBox(win)
@@ -57,7 +61,7 @@ app.on('ready', () => {
   })
   // // 启动后监听
   setTimeout(() => {
-    Upgrade.checkForUpdates(mainWindow);
+    // Upgrade.checkForUpdates(mainWindow);
   }, 3 * 1000);
 })
 

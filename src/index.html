@@ -9,12 +9,32 @@
     [v-cloak] {
       display: none;
     }
+
+    * {
+      border: 0px;
+      margin: 0px;
+      padding: 0px;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      border: 0px;
+    }
+
+    webview {
+      border: 0px;
+      width: 100%;
+      height: 100%;
+      /* display: inline-flex; */
+    }
   </style>
 </head>
 
 <body>
-  <webview id="foo" src="http://app.du-nang.com" width="100%" height="100%"
-    style="display:inline-flex; width:640px; height:480px" allowpopups></webview>
+  <webview id="foo" src="http://dev.du-nang.com" allowpopups>
+  </webview>
   <div id="app" style="display: none;">
     <button @click="autoUpdate()">获取更新</button>
     <ol id="content">
