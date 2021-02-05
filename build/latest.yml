@@ -1,8 +1,8 @@
-version: 1.0.5
+version: 1.0.6
 files:
-  - url: cms_setup_1.0.5.exe
-    sha512: H+ONAqhTbeO3rwDqnvnIX15OOa2av/Qgcqy8aSHCg6KT2jtuoD4hSPNr5opjh0tp+3Zblhulyi1OtOyUcMDbJA==
-    size: 44752944
-path: cms_setup_1.0.5.exe
-sha512: H+ONAqhTbeO3rwDqnvnIX15OOa2av/Qgcqy8aSHCg6KT2jtuoD4hSPNr5opjh0tp+3Zblhulyi1OtOyUcMDbJA==
-releaseDate: '2019-09-19T01:24:59.764Z'
+  - url: cms_setup_1.0.6.exe
+    sha512: mTjHuc1GxqeY64cawc79m/XKMoDck0zts4PymzrUbf55uUOIYsLs6mTIPUyYqRKG8m+9+sNfU0YWHmeQDYch+g==
+    size: 44821856
+path: cms_setup_1.0.6.exe
+sha512: mTjHuc1GxqeY64cawc79m/XKMoDck0zts4PymzrUbf55uUOIYsLs6mTIPUyYqRKG8m+9+sNfU0YWHmeQDYch+g==
+releaseDate: '2021-02-05T03:00:54.211Z'

@@ -98,3 +98,10 @@ electron-builder 可以打包成msi、exe、dmg文件，macOS系统，只能打�
 
 
 https://www.jianshu.com/p/1c2ad78df208?utm_campaign=maleskine&utm_content=note&utm_medium=seo_notes&utm_source=recommendation
+
+
+## build
+```
+npm run build
+
+```
