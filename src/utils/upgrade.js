@@ -13,7 +13,7 @@ class Upgrade {
 
     // 主进程主动发送消息给渲染进程函数
     function sendUpdateMessage(message, data) {
-      log.info("# sendUpdateMessage:", { message, data });
+      log.info("# sendUpdateMessage:", JSON.stringify({ message, data }));
       mainWindow.webContents.send('message', { message, data });
     }
 

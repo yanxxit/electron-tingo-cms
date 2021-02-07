@@ -1,5 +1,5 @@
 # electron-demo
-electron demo
+> electron demo
 
 
 ## 系统托盘
@@ -20,9 +20,10 @@ https://electronjs.org/docs/api/app
 
 
 ## 工具
-
+```
 cnpm install electron-builder -g
 cnpm install electron-forge -g
+```
 
 
 ## electron-packager

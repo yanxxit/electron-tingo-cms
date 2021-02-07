@@ -9,3 +9,5 @@ build/*.zip
 build/*.yaml
 build/*.exe
 build/*.exe.*
+
+build/*.7z

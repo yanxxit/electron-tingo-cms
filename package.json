@@ -1,7 +1,7 @@
 {
   "name": "electron-tingo-cms",
   "productName": "听果打印服务",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "听果打印服务",
   "main": "src/main.js",
   "scripts": {
@@ -56,14 +56,14 @@
     }
   },
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "electron-compile": "^6.4.4",
     "electron-log": "^3.0.8",
     "electron-squirrel-startup": "^1.0.0",
     "electron-updater": "^4.1.2",
     "eslint-config-airbnb": "^18.0.1",
-    "lodash": "^4.17.11",
-    "moment": "^2.24.0"
+    "lodash": "^4.17.20",
+    "moment": "^2.29.1"
   },
   "devDependencies": {
     "babel-plugin-transform-async-to-generator": "^6.24.1",

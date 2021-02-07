@@ -5,6 +5,7 @@ const os = require('os');
 const { autoUpdater } = require("electron-updater");
 // const feedUrl = "https://github.com/shawflying/electron-tingo-cms/releases/download/untagged-a8ba4350679dfd8d625d/cms_setup_1.0.1.exe";
 // const feedUrl = "https://github.com/shawflying/electron-tingo-cms/releases/download/untagged-a8ba4350679dfd8d625d/";
+// const feedUrl = "https://github.com/shawflying/electron-tingo-cms/releases/download/untagged-eb2c090080fd5e6374ea/";
 const feedUrl = "http://127.0.0.1:8080/";
 // if (require('electron-squirrel-startup')) return;
 
@@ -39,14 +40,13 @@ let mainWindow;
 
 let checkForUpdates = () => {
   // 配置安装包远端服务器 
-  // autoUpdater.setFeedURL({
-  //   provider: "github",
-  //   repo: "electron-tingo-cms",
-  //   owner: "shawflying",
-  //   releaseType: "draft"
-  // });
+  autoUpdater.setFeedURL({
+    provider: "github",
+    repo: "electron-tingo-cms",
+    owner: "shawflying",
+    releaseType: "draft"
+  });
   // autoUpdater.setFeedURL(feedUrl);
-  autoUpdater.setFeedURL(feedUrl);
   // 下面是自动更新的整个生命周期所发生的事件
   autoUpdater.on('error', function (message) {
     sendUpdateMessage('Error in auto-updater. ', message);
@@ -81,7 +81,7 @@ let checkForUpdates = () => {
 
 // 主进程主动发送消息给渲染进程函数
 function sendUpdateMessage(message, data) {
-  log.info("# sendUpdateMessage:", { message, data });
+  log.info("# sendUpdateMessage:", JSON.stringify({ message, data }));
   mainWindow.webContents.send('message', { message, data });
 }
 
