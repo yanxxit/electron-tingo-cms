@@ -2,7 +2,7 @@ const { app, BrowserWindow, Menu, protocol, ipcMain } = require('electron');
 const log = require('electron-log');
 const os = require('os');
 // 引入自动更新模块
-const Upgrade = require("./utils/upgrade")
+const Upgrade = require("./upgrade")
 log.info('App starting...');
 
 let template = []

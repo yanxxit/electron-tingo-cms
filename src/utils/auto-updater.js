@@ -1,7 +1,7 @@
 const electron = require('electron')
 const os = require('os')
 const autoUpdater = electron.autoUpdater
-const appVersion = require('../package.json').version
+const appVersion = require('../../package.json').version
 // 注意这个autoUpdater不是electron中的autoUpdater
 // import { autoUpdater } from "electron-updater";
 

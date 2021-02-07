@@ -1,8 +1,8 @@
 version: 1.0.9
 files:
   - url: cms_setup_1.0.9.exe
-    sha512: FNjOl0YEUAwgAF9MiXS+krpMFhKaMS1LzuIwAKeazYYmI0SFjEC4S++XSo9X2+Kle5JizHEStwtBTqscJHMQxw==
-    size: 44823942
+    sha512: oTWUD4hNSHLHlSu4jywsoYVOhnoiI6seRnEXAwJpP3zcEMID5mONpre/l1WOoPpagn0SZJg1jkKRS75KYCUAUw==
+    size: 45099678
 path: cms_setup_1.0.9.exe
-sha512: FNjOl0YEUAwgAF9MiXS+krpMFhKaMS1LzuIwAKeazYYmI0SFjEC4S++XSo9X2+Kle5JizHEStwtBTqscJHMQxw==
-releaseDate: '2021-02-07T02:58:31.907Z'
+sha512: oTWUD4hNSHLHlSu4jywsoYVOhnoiI6seRnEXAwJpP3zcEMID5mONpre/l1WOoPpagn0SZJg1jkKRS75KYCUAUw==
+releaseDate: '2021-02-07T03:38:02.758Z'
