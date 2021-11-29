@@ -11,3 +11,11 @@ build/*.exe
 build/*.exe.*
 
 build/*.7z
+build/
+
+example.png
+
+yarn-error.log
+
+*.log
+*.db
