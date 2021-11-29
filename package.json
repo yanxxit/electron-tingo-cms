@@ -1,7 +1,7 @@
 {
   "name": "electron-tingo-cms",
   "productName": "听果打印服务",
-  "version": "1.0.9",
+  "version": "1.0.12",
   "description": "听果打印服务",
   "main": "src/main.js",
   "scripts": {
@@ -14,6 +14,7 @@
     "build": "electron-builder --win --ia32",
     "online": "electron-builder --publish always",
     "pack": "build --win --ia32 -p always",
+    "rebuild": "electron-rebuild -f -w sqlite3",
     "lint": "eslint src --color"
   },
   "keywords": [],
@@ -56,14 +57,18 @@
     }
   },
   "dependencies": {
-    "axios": "^0.21.1",
+    "aws-sdk": "^2.1038.0",
+    "axios": "^0.24.0",
     "electron-compile": "^6.4.4",
     "electron-log": "^3.0.8",
     "electron-squirrel-startup": "^1.0.0",
     "electron-updater": "^4.1.2",
+    "escpos": "^3.0.0-alpha.6",
     "eslint-config-airbnb": "^18.0.1",
     "lodash": "^4.17.20",
-    "moment": "^2.29.1"
+    "moment": "^2.29.1",
+    "puppeteer": "^12.0.0",
+    "sqlite": "^4.0.23"
   },
   "devDependencies": {
     "babel-plugin-transform-async-to-generator": "^6.24.1",
@@ -73,7 +78,8 @@
     "electron-builder": "^21.2.0",
     "electron-forge": "^5.2.4",
     "electron-packager": "^13.1.1",
-    "electron-prebuilt-compile": "4.0.0"
+    "electron-prebuilt-compile": "4.0.0",
+    "electron-rebuild": "^3.2.5"
   },
   "build": {
     "appId": "com.github.shawflying.electron-tingo-cms",

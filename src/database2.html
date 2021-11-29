@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>听果音乐管理平台</title>
+  <script src="https://cdn.staticfile.org/vue/2.6.10/vue.min.js"></script>
+  <style>
+    [v-cloak] {
+      display: none;
+    }
+  </style>
+</head>
+<script>
+  var moment = require("moment");
+  var axios = require("axios");
+  console.log(moment().format('YYYY'));
+</script>
+
+<body>
+  <div id="app">
+    <h2>操作数据库</h2>
+    <h2>{{today}}</h2>
+    <button @click="autoUpdate()">获取更新</button>
+
+    <ol id="content">
+      <li>生命周期过程展示:{{name}}-{{version}}</li>
+    </ol>
+  </div>
+  <script>
+    const { ipcRenderer } = require('electron');
+    let pkg = require("../package.json");
+    console.log(pkg.name, pkg.productName, pkg.version);
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        today: moment().format('YYYY-MM-DD'),
+        name: pkg.name,
+        version: pkg.version,
+        productName: pkg.productName,
+      },
+      mounted() {
+        var _ol = document.getElementById("content");
+        ipcRenderer.on('message', (event, { message, data }) => {
+          let _li = document.createElement("li");
+          _li.innerHTML = message + " <br>data:" + JSON.stringify(data) + "<hr>";
+          _ol.appendChild(_li);
+          if (message === 'isUpdateNow') {
+            if (confirm('是否现在更新？')) {
+              ipcRenderer.send('updateNow');
+            }
+          }
+        });
+      },
+      methods: {
+        autoUpdate() {
+          ipcRenderer.send('update');
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

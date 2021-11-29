@@ -29,20 +29,34 @@
       height: 100%;
       /* display: inline-flex; */
     }
+
+    button {
+      width: 200px;
+      height: 30px;
+      background-color: cadetblue;
+      border-radius: 5px;
+      color: aliceblue;
+    }
   </style>
 </head>
 
 <body>
-  <webview id="foo" src="http://dev.du-nang.com" allowpopups>
-  </webview>
-  <div id="app" style="display: none;">
+  <!-- <webview id="foo" src="http://dev.du-nang.com" allowpopups>
+  </webview> -->
+  <div id="app">
     <button @click="autoUpdate()">获取更新</button>
+    <button @click="cut()">生成百度首页截图</button>
+    <button @click="getSqlite()">sqlite</button>
     <ol id="content">
       <li>生命周期过程展示:{{name}}-{{version}}</li>
+      <li v-for="m in update_logs" v-html="m"></li>
     </ol>
   </div>
   <script>
     const { ipcRenderer } = require('electron');
+    const puppeteer = require('puppeteer');
+    const path = require('path');
+
     let pkg = require("../package.json");
     console.log(pkg.name, pkg.productName, pkg.version);
     const { remote } = require('electron')
@@ -64,13 +78,11 @@
         name: pkg.name,
         version: pkg.version,
         productName: pkg.productName,
+        update_logs: [],
       },
       mounted() {
-        var _ol = document.getElementById("content");
         ipcRenderer.on('message', (event, { message, data }) => {
-          let _li = document.createElement("li");
-          _li.innerHTML = message + " <br>data:" + JSON.stringify(data) + "<hr>";
-          _ol.appendChild(_li);
+          this.update_logs.push(message + " ==> " + JSON.stringify(data) + "<hr>")
           if (message === 'isUpdateNow') {
             if (confirm('是否现在更新？')) {
               ipcRenderer.send('updateNow');
@@ -81,6 +93,88 @@
       methods: {
         autoUpdate() {
           ipcRenderer.send('update');
+        },
+        // 生成截图
+        async cut() {
+          const browser = await puppeteer.launch();
+          const page = await browser.newPage();
+          await page.goto('https://www.baidu.com');
+          let fileName = "example.png"
+          let fileLink = path.join(__dirname, '../static/images/example.png')
+          let shot = await page.screenshot({ path: fileLink });
+          this.update_logs.push("截图：", `<img src="${fileLink}"></img>`)
+          await browser.close();
+          alert("截图")
+        },
+        async getSqlite() {
+          let sqlite3 = require('sqlite3')
+          let { open } = require('sqlite');
+          let count = 0;
+
+          const config = {
+            sql: {
+              /**
+               * ## 订单状态
+               * status:0 默认创建状态，初始值
+               * status:1 订单已生成图片，待打印
+               * status:2 订单已生成图片，并打印成功
+               * status:-1 打印订单标记失败
+               * ## count 数量
+               * 异常订单已轮询次数，默认是5次，超过不在重复打印
+               * 
+               * ## type 类型
+               * all:整单
+               * splite:分单
+               * statement:结账单
+               * ## oid 
+               * 0： 重复整单
+               * 
+               * ## is_read
+               * 0:尚未被打印服务读取
+               * 1:已读取
+               * 2: 已处理完毕
+               */
+              createTable: `CREATE TABLE IF NOT EXISTS printInfo 
+    (id integer PRIMARY KEY autoincrement, 
+      oid TEXT, 
+      order_no TEXT, 
+      type TEXT, 
+      ip TEXT,
+      port TEXT, 
+      body TEXT,
+      remark TEXT,
+      status INTEGER,
+      is_read INTEGER,
+      count INTEGER, 
+      create_time INTEGER, 
+      update_time INTEGER)`
+            },
+          };
+          // 
+          try {
+            // path.join(__dirname, '../database.db')
+            // const db = await open({
+            //   filename: './database.db',
+            //   driver: sqlite3.Database,
+            //   cached: true
+            // })
+            // db.on('error', function (err) {
+            //   console.log('数据库连接错误:', err)
+            // })
+            // await db.run(config.sql.createTable)
+
+            // await db.exec(`BEGIN TRANSACTION;`)
+            // let stmt = await db.prepare(`INSERT INTO printInfo VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`)
+            // await stmt.run(null, "orderId", "order_no", "type", "ip", "port", "bodyCode", '', 0, 0, 0, Date.now(), Date.now())
+
+            // await db.exec(`COMMIT;`)
+            // let docs = await db.all(`SELECT id, ip, port, body FROM printInfo`)
+            // console.log(`docs`, docs.length);
+            // count = docs.length
+          } catch (error) {
+            console.log(`error`, error);
+          }
+          alert(`读取数据库：${count}`)
         }
       }
     })

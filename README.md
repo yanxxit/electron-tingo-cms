@@ -73,7 +73,7 @@ electron-packager ./ notes --all
 另外，全局安装之后，在命令行中，electron-builder有个别名叫做builder，两者是同一个npm包。大家需要知晓。(当然，有的时候，这个builder并不生效，大家可以多试试electron-builder这个更通用的命令
 
 ```sh
-npm install electron-builder -g
+cnpm install electron-builder -g
 electron-builder --version
 electron-builder -mwl 
 electron-builder --platform=all

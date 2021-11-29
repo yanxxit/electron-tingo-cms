@@ -1,0 +1,4 @@
+owner: shawflying
+repo: electron-tingo-cms
+provider: github
+updaterCacheDirName: electron-tingo-cms-updater
