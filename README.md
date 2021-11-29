@@ -112,7 +112,8 @@ npm run build
 ```js
 {
   "dependencies":{
-    "sqlite3": "^5.0.2"
+    "sqlite3": "^5.0.2",
+    "better-sqlite3": "^7.4.5",
   }
 }
 ```
