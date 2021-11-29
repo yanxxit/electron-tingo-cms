@@ -106,3 +106,25 @@ https://www.jianshu.com/p/1c2ad78df208?utm_campaign=maleskine&utm_content=note&u
 npm run build
 
 ```
+
+### install
+
+```js
+{
+  "dependencies":{
+    "sqlite3": "^5.0.2"
+  }
+}
+```
+
+### 
+```sh
+Cannot find module 'fs/promises'
+
+vim _electron-updater@4.6.1@electron-updater/out/AppUpdater.js
+
+require("fs/promises")，直接全部替换为 require("fs").promises
+
+# 删除测试目录
+rm node_modules/_puppeteer@12.0.0@puppeteer/.local-chromium/win64-938248/chrome-win/interactive_ui_tests.exe -rf
+```

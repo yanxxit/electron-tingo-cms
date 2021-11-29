@@ -1,7 +1,7 @@
 {
   "name": "electron-tingo-cms",
-  "productName": "听果打印服务",
-  "version": "1.0.12",
+  "productName": "print-service",
+  "version": "1.0.13",
   "description": "听果打印服务",
   "main": "src/main.js",
   "scripts": {
@@ -39,7 +39,7 @@
         ]
       },
       "electronPackagerConfig": {
-        "packageManager": "yarn"
+        "packageManager": "npm"
       },
       "electronWinstallerConfig": {
         "name": "electron_print"
@@ -68,24 +68,22 @@
     "lodash": "^4.17.20",
     "moment": "^2.29.1",
     "puppeteer": "^12.0.0",
-    "sqlite": "^4.0.23",
-    "sqlite3": "^5.0.2"
+    "sqlite": "^4.0.23"
   },
   "devDependencies": {
     "babel-plugin-transform-async-to-generator": "^6.24.1",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
-    "electron": "4.1.4",
+    "electron": "^4.1.4",
     "electron-builder": "^21.2.0",
     "electron-forge": "^5.2.4",
     "electron-packager": "^13.1.1",
-    "electron-prebuilt-compile": "4.0.0",
-    "electron-rebuild": "^3.2.5"
+    "electron-prebuilt-compile": "4.0.0"
   },
   "build": {
     "appId": "com.github.shawflying.electron-tingo-cms",
     "copyright": "听果音乐所有",
-    "productName": "cms",
+    "productName": "print",
     "directories": {
       "output": "build"
     },
@@ -105,11 +103,11 @@
       }
     },
     "win": {
-      "icon": "src/icon/bk.ico",
+      "icon": "src/icon/favicon.ico",
       "target": [
         "nsis"
       ],
-      "artifactName": "${productName}_setup_${version}.${ext}"
+      "artifactName": "${productName}-service-${version}.${ext}"
     },
     "nsis": {
       "oneClick": false,
